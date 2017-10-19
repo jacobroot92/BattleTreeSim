@@ -6,10 +6,19 @@ using System.Threading.Tasks;
 
 namespace BattleTreeSimulatorConsole.PokemonClasses
 {
-    interface IPokemon
+    public interface IPokemon
     {
-        int DoDamage(int power);
+        string Name { get; set; }
+        int RemainingHP { get; set; }
+        int MaxHP { get; set; }
+        int Attack { get; set; }
+        int Defense { get; set; }
+        int SpecialAttack { get; set; }
+        int SpecialDefense { get; set; }
+        int Speed { get; set; }
 
-        void TakeDamage(int damageBase, double random);
+        int DoDamage(int power, double random, double modifier);
+
+        void TakeDamage(int damageBase);
     }
 }

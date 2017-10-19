@@ -13,31 +13,69 @@ namespace BattleTreeSimulatorConsole
         {
             var endInput = "";
             Random random = new Random();
-            Pokemon pkmn1 = new Pokemon("Pikachu", 500, 50, 200);
-            Pokemon pkmn2 = new Pokemon("Typhlosion", 500, 500, 200);
-            while (pkmn1.RemainingHP > 0 && pkmn2.RemainingHP > 0)
+            IPokemon TyphlosionWithoutItem = new Pokemon("Typhlosion", 50, 50, 200, 6);
+            IPokemon TyphlosionBeforeSTAB = new ChoiceBand(TyphlosionWithoutItem);
+            IPokemon Typhlosion = new STAB(TyphlosionBeforeSTAB);
+            IPokemon PikachuWithoutItem = new Pokemon("Pikachu", 50, 50, 200, 5);
+            IPokemon Pikachu = new ChoiceScarf(PikachuWithoutItem);
+            IPokemon pkmn1;
+            IPokemon pkmn2;
+            int round = 1;
+            
+            while (Typhlosion.RemainingHP > 0 && Pikachu.RemainingHP > 0)
             {
-                var attackDamage = pkmn1.DoDamage(80);
-                pkmn2.TakeDamage(attackDamage, GetRandomNumber(0.85, 1.0, random));
-                Console.WriteLine(pkmn2.Name + " has " + pkmn2.RemainingHP + " HP remaining!");
-
-                var attackDamage2 = pkmn2.DoDamage(80);
-                pkmn1.TakeDamage(attackDamage2, GetRandomNumber(0.85, 1.0, random));
-                Console.WriteLine(pkmn1.Name + " has " + pkmn1.RemainingHP + " HP remaining!");
-
-                endInput = Console.ReadLine();
+                if(Pikachu.Speed > Typhlosion.Speed)
+                {
+                    pkmn1 = Pikachu;
+                    pkmn2 = Typhlosion;
+                }
+                else if (Pikachu.Speed < Typhlosion.Speed)
+                {
+                    pkmn1 = Typhlosion;
+                    pkmn2 = Pikachu;
+                }
+                else
+                {
+                    if(GetRandomNumber(0,1,random) > 0.5)
+                    {
+                        pkmn1 = Pikachu;
+                        pkmn2 = Typhlosion;
+                    }
+                    else
+                    {
+                        pkmn1 = Typhlosion;
+                        pkmn2 = Pikachu;
+                    }
+                }
+                Console.WriteLine("Round " + round);
+                Battle(pkmn1, pkmn2, GetRandomNumber(0.85, 1.0, random), GetRandomNumber(0.85, 1.0, random));
+                round++;
             }
 
-            if (pkmn1.RemainingHP > 0)
-                Console.WriteLine(pkmn1.Name + " Wins!");
+            if (Typhlosion.RemainingHP > 0)
+                Console.WriteLine(Typhlosion.Name + " Wins!");
             else
-                Console.WriteLine(pkmn2.Name + " Wins!");
+                Console.WriteLine(Pikachu.Name + " Wins!");
             endInput = Console.ReadLine();
         }
 
         static public double GetRandomNumber(double minimum, double maximum, Random random)
         {
             return random.NextDouble() * (maximum - minimum) + minimum;
+        }
+
+        static public void Battle(IPokemon pkmn1, IPokemon pkmn2, double random1, double random2)
+        {
+                Console.WriteLine(pkmn1.Name + " attacks " + pkmn2.Name);
+                pkmn2.TakeDamage(pkmn1.DoDamage(80, random1, 1));
+                Console.WriteLine();
+
+                if (pkmn2.RemainingHP > 0)
+                {
+                    Console.WriteLine(pkmn2.Name + " attacks " + pkmn1.Name);
+                    pkmn1.TakeDamage(pkmn2.DoDamage(80, random2, 1));
+                    Console.WriteLine();
+                }
         }
     }
 }

@@ -42,8 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PokemonClasses\ChoiceBand.cs" />
+    <Compile Include="PokemonClasses\ChoiceScarf.cs" />
+    <Compile Include="PokemonClasses\Eviolite.cs" />
     <Compile Include="PokemonClasses\IPokemon.cs" />
+    <Compile Include="PokemonClasses\LifeOrb.cs" />
     <Compile Include="PokemonClasses\Pokemon.cs" />
+    <Compile Include="PokemonClasses\STAB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
