@@ -1,0 +1,7 @@
+C:\Users\jroot\source\repos\BattleTreeSimulatorConsole\BattleTreeSimulatorConsole\bin\Debug\BattleTreeSimulatorConsole.exe.config
+C:\Users\jroot\source\repos\BattleTreeSimulatorConsole\BattleTreeSimulatorConsole\bin\Debug\BattleTreeSimulatorConsole.exe
+C:\Users\jroot\source\repos\BattleTreeSimulatorConsole\BattleTreeSimulatorConsole\bin\Debug\BattleTreeSimulatorConsole.pdb
+C:\Users\jroot\source\repos\BattleTreeSimulatorConsole\BattleTreeSimulatorConsole\obj\Debug\BattleTreeSimulatorConsole.csprojResolveAssemblyReference.cache
+C:\Users\jroot\source\repos\BattleTreeSimulatorConsole\BattleTreeSimulatorConsole\obj\Debug\BattleTreeSimulatorConsole.csproj.CoreCompileInputs.cache
+C:\Users\jroot\source\repos\BattleTreeSimulatorConsole\BattleTreeSimulatorConsole\obj\Debug\BattleTreeSimulatorConsole.exe
+C:\Users\jroot\source\repos\BattleTreeSimulatorConsole\BattleTreeSimulatorConsole\obj\Debug\BattleTreeSimulatorConsole.pdb
