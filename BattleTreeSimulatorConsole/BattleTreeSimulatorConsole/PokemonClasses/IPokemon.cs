@@ -17,8 +17,8 @@ namespace BattleTreeSimulatorConsole.PokemonClasses
         int SpecialDefense { get; set; }
         int Speed { get; set; }
 
-        int DoDamage(int power, double random, double modifier);
+        int DoDamage(int power, bool physical, double random, double modifier);
 
-        void TakeDamage(int damageBase);
+        void TakeDamage(int damageBase, bool physical);
     }
 }

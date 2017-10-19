@@ -24,9 +24,9 @@ namespace BattleTreeSimulatorConsole.PokemonClasses
         public int SpecialDefense { get => pokemon.SpecialDefense; set => pokemon.SpecialDefense = value; }
         public int Speed { get { return pokemon.Speed; } set { pokemon.Speed = value; } }
         
-        int IPokemon.DoDamage(int power, double random, double modifier)
+        int IPokemon.DoDamage(int power, bool physical, double random, double modifier)
         {
-            return pokemon.DoDamage(power, random, modifier * 1.5);
+            return pokemon.DoDamage(power, physical, random, modifier * 1.5);
         }
 
         private int pokeRound(double number)
@@ -35,9 +35,9 @@ namespace BattleTreeSimulatorConsole.PokemonClasses
             return (number % 1 > 0.5) ? (int)Math.Ceiling(number) : (int)Math.Floor(number);
         }
 
-        void IPokemon.TakeDamage(int damageBase)
+        void IPokemon.TakeDamage(int damageBase, bool physical)
         {
-            pokemon.TakeDamage(damageBase);
+            pokemon.TakeDamage(damageBase, physical);
         }
     }
 }

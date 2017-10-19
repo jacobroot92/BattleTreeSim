@@ -24,14 +24,14 @@ namespace BattleTreeSimulatorConsole.PokemonClasses
         public int SpecialDefense { get => pokemon.SpecialDefense; set => pokemon.SpecialDefense = value; }
         public int Speed { get { return pokeRound(pokemon.Speed * 1.5); } set => pokemon.Speed = value; }
 
-        public int DoDamage(int power, double random, double modifier)
+        public int DoDamage(int power, bool physical, double random, double modifier)
         {
-            return pokemon.DoDamage(power, random, modifier);
+            return pokemon.DoDamage(power, physical, random, modifier);
         }
 
-        public void TakeDamage(int damageBase)
+        public void TakeDamage(int damageBase, bool physical)
         {
-            pokemon.TakeDamage(damageBase);
+            pokemon.TakeDamage(damageBase, physical);
         }
 
         private int pokeRound(double number)

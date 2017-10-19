@@ -13,10 +13,10 @@ namespace BattleTreeSimulatorConsole
         {
             var endInput = "";
             Random random = new Random();
-            IPokemon TyphlosionWithoutItem = new Pokemon("Typhlosion", 50, 50, 200, 6);
+            IPokemon TyphlosionWithoutItem = new Pokemon("Typhlosion", 200, 50, 50, 50, 50, 6);
             IPokemon TyphlosionBeforeSTAB = new ChoiceBand(TyphlosionWithoutItem);
             IPokemon Typhlosion = new STAB(TyphlosionBeforeSTAB);
-            IPokemon PikachuWithoutItem = new Pokemon("Pikachu", 50, 50, 200, 5);
+            IPokemon PikachuWithoutItem = new Pokemon("Pikachu", 200, 50, 50, 50, 50, 5);
             IPokemon Pikachu = new ChoiceScarf(PikachuWithoutItem);
             IPokemon pkmn1;
             IPokemon pkmn2;
@@ -67,13 +67,13 @@ namespace BattleTreeSimulatorConsole
         static public void Battle(IPokemon pkmn1, IPokemon pkmn2, double random1, double random2)
         {
                 Console.WriteLine(pkmn1.Name + " attacks " + pkmn2.Name);
-                pkmn2.TakeDamage(pkmn1.DoDamage(80, random1, 1));
+                pkmn2.TakeDamage(pkmn1.DoDamage(80, false, random1, 1), false);
                 Console.WriteLine();
 
                 if (pkmn2.RemainingHP > 0)
                 {
                     Console.WriteLine(pkmn2.Name + " attacks " + pkmn1.Name);
-                    pkmn1.TakeDamage(pkmn2.DoDamage(80, random2, 1));
+                    pkmn1.TakeDamage(pkmn2.DoDamage(80, true, random2, 1), true);
                     Console.WriteLine();
                 }
         }

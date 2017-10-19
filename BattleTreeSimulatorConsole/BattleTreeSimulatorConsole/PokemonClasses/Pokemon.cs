@@ -29,30 +29,48 @@ namespace BattleTreeSimulatorConsole.PokemonClasses
         public Pokemon (Pokemon pokemon)
         {
             Name = pokemon.Name;
-            Attack = pokemon.Attack;
-            Defense = pokemon.Defense;
             RemainingHP = pokemon.RemainingHP;
             MaxHP = pokemon.MaxHP;
+            Attack = pokemon.Attack;
+            Defense = pokemon.Defense;
+            SpecialAttack = pokemon.SpecialAttack;
+            SpecialDefense = pokemon.SpecialDefense;
             Speed = pokemon.Speed;
         }
 
-        public Pokemon (string Name, int Attack, int Defense, int HP, int Speed)
+        public Pokemon (string Name, int HP, int Attack, int Defense, int SpecialAttack, int SpecialDefense, int Speed)
         {
             this.Name = Name;
+            RemainingHP = MaxHP = HP;
             this.Attack = Attack;
             this.Defense = Defense;
-            RemainingHP = MaxHP = HP;
+            this.SpecialAttack = SpecialAttack;
+            this.SpecialDefense = SpecialDefense;
             this.Speed = Speed;
         }
 
-        public int DoDamage(int power, double random, double modifier)
+        public int DoDamage(int power, bool physical, double random, double modifier)
         {
-            return pokeRound(((12*power*Attack) + 2)*(random*modifier));
+            int baseAttack;
+
+            if (physical)
+                baseAttack = Attack;
+            else
+                baseAttack = SpecialAttack;
+
+            return pokeRound(((12*power* baseAttack) + 2)*(random*modifier));
         }
 
-        public void TakeDamage(int damageBase)
+        public void TakeDamage(int damageBase, bool physical)
         {
-            var damageAfterDefense = damageBase / (50*Defense);
+            int baseDefense;
+            
+            if (physical)
+                baseDefense = Defense;
+            else
+                baseDefense = SpecialDefense;
+
+            var damageAfterDefense = damageBase / (50* baseDefense);
             var roundedDamage = pokeRound(damageAfterDefense);
             if (roundedDamage > RemainingHP)
                 RemainingHP = 0;
