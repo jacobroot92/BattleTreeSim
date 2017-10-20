@@ -16,8 +16,14 @@ namespace BattleTreeSimulatorConsole.PokemonClasses
         private int SpecialAttack;
         private int SpecialDefense;
         private int Speed;
+        private Item HeldItem;
+        private Type Type1;
+        private Type Type2;
+        private bool CanEvolve;
 
         string IPokemon.Name { get { return Name; } set { Name = value; } }
+        Type IPokemon.Type1 { get { return Type1; } set { Type1 = value; } }
+        Type IPokemon.Type2 { get { return Type2; } set { Type2 = value; } }
         int IPokemon.RemainingHP { get { return RemainingHP; } set { RemainingHP = value; } }
         int IPokemon.MaxHP { get { return MaxHP; } set { MaxHP = value; } }
         int IPokemon.Attack  { get { return Attack; } set { Attack = value; } }
@@ -25,6 +31,8 @@ namespace BattleTreeSimulatorConsole.PokemonClasses
         int IPokemon.SpecialAttack { get { return SpecialAttack; } set { SpecialAttack = value; } }
         int IPokemon.SpecialDefense { get { return SpecialDefense; } set { SpecialDefense = value; } }
         int IPokemon.Speed  { get { return Speed; } set { Speed = value; } }
+        Item IPokemon.HeldItem { get { return HeldItem; } set { HeldItem = value; } }
+        bool IPokemon.CanEvolve { get { return CanEvolve; } set { CanEvolve = value; } }
 
         public Pokemon (Pokemon pokemon)
         {
@@ -38,7 +46,7 @@ namespace BattleTreeSimulatorConsole.PokemonClasses
             Speed = pokemon.Speed;
         }
 
-        public Pokemon (string Name, int HP, int Attack, int Defense, int SpecialAttack, int SpecialDefense, int Speed)
+        public Pokemon (string Name, int HP, int Attack, int Defense, int SpecialAttack, int SpecialDefense, int Speed, Item HeldItem, Type Type1, Type Type2, bool canEvolve)
         {
             this.Name = Name;
             RemainingHP = MaxHP = HP;
@@ -47,6 +55,8 @@ namespace BattleTreeSimulatorConsole.PokemonClasses
             this.SpecialAttack = SpecialAttack;
             this.SpecialDefense = SpecialDefense;
             this.Speed = Speed;
+            this.HeldItem = HeldItem;
+            CanEvolve = canEvolve;
         }
 
         public int DoDamage(int power, bool physical, double random, double modifier)

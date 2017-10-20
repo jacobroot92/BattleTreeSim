@@ -1,4 +1,5 @@
 ﻿using BattleTreeSimulatorConsole.PokemonClasses;
+using BattleTreeSimulatorConsole.Trainers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,40 +14,46 @@ namespace BattleTreeSimulatorConsole
         {
             var endInput = "";
             Random random = new Random();
-            IPokemon TyphlosionWithoutItem = new Pokemon("Typhlosion", 200, 50, 50, 50, 50, 6);
-            IPokemon TyphlosionBeforeSTAB = new ChoiceBand(TyphlosionWithoutItem);
-            IPokemon Typhlosion = new STAB(TyphlosionBeforeSTAB);
-            IPokemon PikachuWithoutItem = new Pokemon("Pikachu", 200, 50, 50, 50, 50, 5);
-            IPokemon Pikachu = new ChoiceScarf(PikachuWithoutItem);
+            IPokemon Typhlosion = new Pokemon("Typhlosion", 200, 50, 50, 50, 50, 6, Item.ChoiceBand, Type.Fire, Type.None, false);
+            IPokemon Pikachu = new Pokemon("Pikachu", 200, 50, 50, 50, 50, 5, Item.ChoiceScarf, Type.Electric, Type.None, true);
+            IPokemon Porygon2 = new Pokemon("Porygon2", 200, 50, 50, 50, 50, 2, Item.Eviolite, Type.Normal, Type.None, true);
+            Trainer User = new Trainer(Typhlosion, Pikachu, Porygon2);
+            Trainer CPU = new Trainer();
+            CPU.PopulateRandomCPU();
             IPokemon pkmn1;
             IPokemon pkmn2;
             int round = 1;
-            
-            while (Typhlosion.RemainingHP > 0 && Pikachu.RemainingHP > 0)
+
+            var userPokemon = User.Pokemon1;
+            var CPUPokemon = CPU.Pokemon1;
+
+            while (userPokemon.RemainingHP > 0 && CPU.Pokemon1.RemainingHP > 0)
             {
-                if(Pikachu.Speed > Typhlosion.Speed)
+                if(userPokemon.Speed > CPUPokemon.Speed)
                 {
-                    pkmn1 = Pikachu;
-                    pkmn2 = Typhlosion;
+                    pkmn1 = userPokemon;
+                    pkmn2 = CPUPokemon;
                 }
-                else if (Pikachu.Speed < Typhlosion.Speed)
+                else if (userPokemon.Speed < CPUPokemon.Speed)
                 {
-                    pkmn1 = Typhlosion;
-                    pkmn2 = Pikachu;
+                    pkmn1 = CPUPokemon;
+                    pkmn2 = userPokemon;
                 }
                 else
                 {
                     if(GetRandomNumber(0,1,random) > 0.5)
                     {
-                        pkmn1 = Pikachu;
-                        pkmn2 = Typhlosion;
+                        pkmn1 = userPokemon;
+                        pkmn2 = CPUPokemon;
                     }
                     else
                     {
-                        pkmn1 = Typhlosion;
-                        pkmn2 = Pikachu;
+                        pkmn1 = CPUPokemon;
+                        pkmn2 = userPokemon;
                     }
                 }
+                pkmn1 = Update(pkmn1);
+                pkmn2 = Update(pkmn2);
                 Console.WriteLine("Round " + round);
                 Battle(pkmn1, pkmn2, GetRandomNumber(0.85, 1.0, random), GetRandomNumber(0.85, 1.0, random));
                 round++;
@@ -57,6 +64,25 @@ namespace BattleTreeSimulatorConsole
             else
                 Console.WriteLine(Pikachu.Name + " Wins!");
             endInput = Console.ReadLine();
+        }
+
+        private static IPokemon Update(IPokemon pokemon)
+        {
+            IPokemon updatedPokemon = pokemon;
+            switch(pokemon.HeldItem)
+            {
+                case Item.ChoiceBand:
+                    updatedPokemon = new ChoiceBand(pokemon);
+                    break;
+                case Item.ChoiceScarf:
+                    updatedPokemon = new ChoiceScarf(pokemon);
+                    break;
+                case Item.Eviolite:
+                    updatedPokemon = new Eviolite(pokemon);
+                    break;
+            }
+
+            return updatedPokemon;
         }
 
         static public double GetRandomNumber(double minimum, double maximum, Random random)
